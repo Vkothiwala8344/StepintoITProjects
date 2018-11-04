@@ -8,15 +8,15 @@
     <EditText
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/value1"
+        android:id="@+id/edt_value1"
         android:gravity="center"/>
 
     <EditText
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/value2"
+        android:id="@+id/edt_value2"
         android:gravity="center"
-        android:layout_toRightOf="@id/value1"/>
+        android:layout_toRightOf="@id/edt_value1"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:text="x"
         android:textSize="50dp"
         android:id="@+id/tv_x"
-        android:layout_below="@id/value1"
+        android:layout_below="@id/edt_value1"
         android:layout_marginLeft="35dp"/>
 
     <TextView
@@ -33,14 +33,14 @@
         android:text="Y"
         android:textSize="50dp"
         android:id="@+id/tv_y"
-        android:layout_below="@id/value2"
-        android:layout_toRightOf="@id/value1"
+        android:layout_below="@id/edt_value2"
+        android:layout_toRightOf="@id/edt_value1"
         android:layout_marginLeft="35dp"/>
 
     <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/plusButton"
+        android:id="@+id/btn_plus"
         android:text="+"
         android:textSize="50dp"
         android:layout_marginTop="10dp"
@@ -49,31 +49,31 @@
     <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/multiplyButton"
+        android:id="@+id/btn_multiply"
         android:text="*"
         android:textSize="50dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/tv_x"
-        android:layout_toRightOf="@id/plusButton"/>
+        android:layout_toRightOf="@id/btn_plus"/>
 
     <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/minusButton"
+        android:id="@+id/btn_minus"
         android:text="-"
         android:textSize="50dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/plusButton"/>
+        android:layout_below="@id/btn_plus"/>
 
     <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/divisionButton"
+        android:id="@+id/btn_division"
         android:text="/"
         android:textSize="50dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/plusButton"
-        android:layout_toRightOf="@id/minusButton"/>
+        android:layout_below="@id/btn_plus"
+        android:layout_toRightOf="@id/btn_minus"/>
 
 
     <TextView
@@ -84,16 +84,16 @@
         android:layout_marginTop="30dp"
         android:paddingTop="20dp"
         android:id="@+id/tv_result"
-        android:layout_below="@id/minusButton"/>
+        android:layout_below="@id/btn_minus"/>
 
     <EditText
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:id="@+id/editText_result"
+        android:id="@+id/edt_result"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:layout_toRightOf="@id/tv_result"
-        android:layout_below="@id/minusButton"/>
+        android:layout_below="@id/btn_minus"/>
 
 
 </RelativeLayout>

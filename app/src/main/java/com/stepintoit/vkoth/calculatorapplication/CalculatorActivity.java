@@ -1,6 +1,5 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,69 +9,69 @@ import android.widget.EditText;
 
 public class CalculatorActivity extends AppCompatActivity {
 
-    Button plusB,minusB,divisionB,multiplyB;
-    EditText resultEdittext;
+    Button btnPlus, btnMinus, btnDivision, btnMultiply;
+    EditText edtResult;
 
-    EditText v1,v2;
+    EditText edtValue1, edtValue2;
 
-    int x,y,ans;
+    int mValue1, mValue2, mResult;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
-        plusB = (Button)findViewById(R.id.plusButton);
-        minusB = (Button)findViewById(R.id.minusButton);
-        multiplyB = (Button)findViewById(R.id.multiplyButton);
-        divisionB = (Button)findViewById(R.id.divisionButton);
+        btnPlus = (Button)findViewById(R.id.btn_plus);
+        btnMinus = (Button)findViewById(R.id.btn_minus);
+        btnMultiply = (Button)findViewById(R.id.btn_multiply);
+        btnDivision = (Button)findViewById(R.id.btn_division);
 
-        v1 = (EditText)findViewById(R.id.value1) ;
-        v2= (EditText)findViewById(R.id.value2);
+        edtValue1 = (EditText)findViewById(R.id.edt_value1) ;
+        edtValue2 = (EditText)findViewById(R.id.edt_value2);
 
-        resultEdittext = (EditText)findViewById(R.id.editText_result);
+        edtResult = (EditText)findViewById(R.id.edt_result);
 
 
-       plusB.setOnClickListener(new View.OnClickListener() {
+       btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                x = Integer.parseInt(v1.getText().toString());
-                y = Integer.parseInt(v2.getText().toString());
-                ans = x + y;
-                resultEdittext.setText(Integer.toString(ans));
+                mValue1 = Integer.parseInt(edtValue1.getText().toString());
+                mValue2 = Integer.parseInt(edtValue2.getText().toString());
+                mResult = mValue1 + mValue2;
+                edtResult.setText(Integer.toString(mResult));
             }
         });
 
-        minusB.setOnClickListener(new View.OnClickListener() {
+        btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                x = Integer.parseInt(v1.getText().toString());
-                y = Integer.parseInt(v2.getText().toString());
-                ans = x - y;
-                resultEdittext.setText(Integer.toString(ans));
+                mValue1 = Integer.parseInt(edtValue1.getText().toString());
+                mValue2 = Integer.parseInt(edtValue2.getText().toString());
+                mResult = mValue1 - mValue2;
+                edtResult.setText(Integer.toString(mResult));
             }
         });
 
-        multiplyB.setOnClickListener(new View.OnClickListener() {
+        btnMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                x = Integer.parseInt(v1.getText().toString());
-                y = Integer.parseInt(v2.getText().toString());
-                ans = x * y;
-                resultEdittext.setText(Integer.toString(ans));
+                mValue1 = Integer.parseInt(edtValue1.getText().toString());
+                mValue2 = Integer.parseInt(edtValue2.getText().toString());
+                mResult = mValue1 * mValue2;
+                edtResult.setText(Integer.toString(mResult));
             }
         });
-        divisionB.setOnClickListener(new View.OnClickListener() {
+        btnDivision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                x = Integer.parseInt(v1.getText().toString());
-                y = Integer.parseInt(v2.getText().toString());
-                ans = x / y;
-                resultEdittext.setText(Integer.toString(ans));
+                mValue1 = Integer.parseInt(edtValue1.getText().toString());
+                mValue2 = Integer.parseInt(edtValue2.getText().toString());
+                mResult = mValue1 / mValue2;
+                edtResult.setText(Integer.toString(mResult));
             }
         });
     }
