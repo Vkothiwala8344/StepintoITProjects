@@ -44,13 +44,8 @@ public class LoginActivity extends AppCompatActivity {
                 //  Log.d("Password",pass);
 
                 if (uname.equals("admin") && pass.equals("pass")) {
-                    sharedPreferences = getSharedPreferences(MYPREFERENCE,
-                            Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(KEY_USER, uname);
-                    editor.putString(KEY_PASSWORD, pass);
-                    editor.commit();
 
+                    MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_USER,uname);
                     startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
 
                 } else if (uname.isEmpty() && pass.isEmpty()) {

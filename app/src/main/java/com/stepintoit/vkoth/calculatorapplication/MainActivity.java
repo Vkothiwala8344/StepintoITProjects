@@ -8,11 +8,6 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-    public static final String MYPREFERENCE = "mypref";
-    public static final String KEY_USER = "userKey";
-    public static final String KEY_PASSWORD = "passKey";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,18 +23,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 finally
                 {
-                    sharedPreferences = getSharedPreferences(MYPREFERENCE,
-                            Context.MODE_PRIVATE);
-                    if (sharedPreferences.contains(KEY_USER) && sharedPreferences.contains(KEY_PASSWORD)) {
 
-                        startActivity(new Intent(MainActivity.this, CalculatorActivity.class));
-                        finish();
+                   String userName = MySharedPreference.getInstance(MainActivity.this).getValue(MySharedPreference.KEY_USER);
+                    if(userName.isEmpty())
+                    {
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
                     }
 
                     else {
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
+                        startActivity(new Intent(MainActivity.this, CalculatorActivity.class));
+
                     }
+                    finish();
                 }
             }
         };
