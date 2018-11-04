@@ -83,10 +83,10 @@ public class CalculatorActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Value of y can not be empty", Toast.LENGTH_SHORT).show();
 
         } else {
-            int mValue1, mValue2;
+            double mValue1, mValue2;
             double mResult = 0;
-            mValue1 = Integer.parseInt(edtValue1.getText().toString());
-            mValue2 = Integer.parseInt(edtValue2.getText().toString());
+            mValue1 = Double.parseDouble(edtValue1.getText().toString());
+            mValue2 = Double.parseDouble(edtValue2.getText().toString());
 
             if (operation == ADDITION)
                 mResult = mValue1 + mValue2;
@@ -95,7 +95,7 @@ public class CalculatorActivity extends AppCompatActivity {
             else if (operation == MULTIPLY)
                 mResult = mValue1 * mValue2;
             else if (operation == DIVISION)
-                mResult = (double) (mValue1 / mValue2);
+                mResult = mValue1 / mValue2;
 
             edtResult.setText(Double.toString(mResult));
         }
