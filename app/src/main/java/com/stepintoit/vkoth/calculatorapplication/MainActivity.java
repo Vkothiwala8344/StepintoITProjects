@@ -9,9 +9,9 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
-    public static final String mypreference = "mypref";
-    public static final String userKey = "userKey";
-    public static final String passKey = "passKey";
+    public static final String MYPREFERENCE = "mypref";
+    public static final String KEY_USER = "userKey";
+    public static final String KEY_PASSWORD = "passKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 finally
                 {
-                    sharedPreferences = getSharedPreferences(mypreference,
+                    sharedPreferences = getSharedPreferences(MYPREFERENCE,
                             Context.MODE_PRIVATE);
-                    if (sharedPreferences.contains(userKey) && sharedPreferences.contains(passKey)) {
+                    if (sharedPreferences.contains(KEY_USER) && sharedPreferences.contains(KEY_PASSWORD)) {
 
                         startActivity(new Intent(MainActivity.this, CalculatorActivity.class));
                         finish();

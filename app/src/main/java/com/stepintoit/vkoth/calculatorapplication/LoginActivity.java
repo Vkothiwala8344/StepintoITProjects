@@ -8,13 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
-    public static final String mypreference = "mypref";
-    public static final String userKey = "userKey";
-    public static final String passKey = "passKey";
+    public static final String MYPREFERENCE = "mypref";
+    public static final String KEY_USER = "userKey";
+    public static final String KEY_PASSWORD = "passKey";
 
     Button btnSubmit;
     EditText edtUsername, edtPassword;
@@ -32,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         //check if you have stored data in shared preferences
 
 
-
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,19 +44,29 @@ public class LoginActivity extends AppCompatActivity {
                 //  Log.d("Password",pass);
 
                 if (uname.equals("admin") && pass.equals("pass")) {
-                    sharedPreferences = getSharedPreferences(mypreference,
+                    sharedPreferences = getSharedPreferences(MYPREFERENCE,
                             Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(userKey, uname);
-                    editor.putString(passKey, pass);
+                    editor.putString(KEY_USER, uname);
+                    editor.putString(KEY_PASSWORD, pass);
                     editor.commit();
 
                     startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
+
+                } else if (uname.isEmpty() && pass.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "username and password can not be empty", Toast.LENGTH_SHORT).show();
+
+                } else if (uname.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "username can not be empty", Toast.LENGTH_SHORT).show();
+
+
+                } else if (pass.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Password can not be empty", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Username and password are not right", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
-
     }
 }
