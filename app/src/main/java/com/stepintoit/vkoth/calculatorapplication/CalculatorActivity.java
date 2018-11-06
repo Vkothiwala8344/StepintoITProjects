@@ -23,11 +23,14 @@ public class CalculatorActivity extends AppCompatActivity {
 
     EditText edtValue1, edtValue2;
 
+    private static double mValue1, mValue2;
+    private static double mResult = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
 
         btnPlus = (Button) findViewById(R.id.btn_plus);
         btnMinus = (Button) findViewById(R.id.btn_minus);
@@ -39,6 +42,11 @@ public class CalculatorActivity extends AppCompatActivity {
 
         edtResult = (EditText) findViewById(R.id.edt_result);
 
+        String valueX = MySharedPreference.getInstance(CalculatorActivity.this).getValue(MySharedPreference.KEY_X);
+        String valueY = MySharedPreference.getInstance(CalculatorActivity.this).getValue(MySharedPreference.KEY_Y);
+
+        edtValue1.setText(valueX);
+        edtValue2.setText(valueY);
 
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +83,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -92,8 +100,7 @@ public class CalculatorActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Value of y can not be empty", Toast.LENGTH_SHORT).show();
 
         } else {
-            double mValue1, mValue2;
-            double mResult = 0;
+
             mValue1 = Double.parseDouble(edtValue1.getText().toString());
             mValue2 = Double.parseDouble(edtValue2.getText().toString());
 
@@ -112,11 +119,13 @@ public class CalculatorActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.itm_logout:
+
+                MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_X, Double.toString(mValue1));
+                MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_Y, Double.toString(mValue2));
                 MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_USER);
-                startActivity(new Intent(CalculatorActivity.this,LoginActivity.class));
+                startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
                 finish();
                 return true;
         }
