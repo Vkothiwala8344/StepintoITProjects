@@ -1,8 +1,11 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,6 +73,12 @@ public class CalculatorActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
     public void getResult(int operation) {
 
 
@@ -99,5 +108,18 @@ public class CalculatorActivity extends AppCompatActivity {
 
             edtResult.setText(Double.toString(mResult));
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.itm_logout:
+                MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_USER);
+                startActivity(new Intent(CalculatorActivity.this,LoginActivity.class));
+                finish();
+                return true;
+        }
+        return (super.onOptionsItemSelected(item));
     }
 }

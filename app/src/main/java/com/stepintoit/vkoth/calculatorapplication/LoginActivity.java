@@ -40,15 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 uname = edtUsername.getText().toString();
                 pass = edtPassword.getText().toString();
 
-                //  Log.d("Username",uname);
-                //  Log.d("Password",pass);
-
-                if (uname.equals("admin") && pass.equals("pass")) {
-
-                    MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_USER,uname);
-                    startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
-
-                } else if (uname.isEmpty() && pass.isEmpty()) {
+                if (uname.isEmpty() && pass.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "username and password can not be empty", Toast.LENGTH_SHORT).show();
 
                 } else if (uname.isEmpty()) {
@@ -59,7 +51,12 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password can not be empty", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Username and password are not right", Toast.LENGTH_SHORT).show();
+
+                    MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_USER, uname);
+                    MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_PASSWORD,pass);
+                    startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
+                    finish();
+
                 }
             }
         });

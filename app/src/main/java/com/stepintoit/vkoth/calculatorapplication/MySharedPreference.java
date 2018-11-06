@@ -39,6 +39,12 @@ public class MySharedPreference {
         return sharedPreferences.getString(key, "");
     }
 
+    void deleteValue(String key)
+    {
+        editor.remove(KEY_USER);
+        editor.commit();
+    }
+
 
 
 }
