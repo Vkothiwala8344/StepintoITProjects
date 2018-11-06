@@ -39,7 +39,8 @@
         android:layout_marginTop="50dp"
         android:layout_toRightOf="@id/tv_username"
         android:gravity="center"
-        android:inputType="textWebEmailAddress" />
+        android:hint="please enter email id"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,6 +62,7 @@
         android:layout_marginTop="50dp"
         android:layout_toRightOf="@id/tv_password"
         android:inputType="textPassword"
+        android:hint="please enter password"
         />
 
     <Button

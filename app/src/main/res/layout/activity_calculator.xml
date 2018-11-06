@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
@@ -21,81 +21,81 @@
         android:inputType="number|numberDecimal" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="x"
-        android:textSize="50dp"
         android:id="@+id/tv_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/edt_value1"
-        android:layout_marginLeft="35dp"/>
+        android:layout_marginLeft="35dp"
+        android:text="x"
+        android:textSize="50dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Y"
-        android:textSize="50dp"
         android:id="@+id/tv_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/edt_value2"
+        android:layout_marginLeft="35dp"
         android:layout_toRightOf="@id/edt_value1"
-        android:layout_marginLeft="35dp"/>
+        android:text="Y"
+        android:textSize="50dp" />
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="100dp"
         android:id="@+id/btn_plus"
-        android:text="+"
-        android:textSize="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/tv_x"/>
-
-    <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/btn_multiply"
-        android:text="*"
-        android:textSize="50dp"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/tv_x"
-        android:layout_toRightOf="@id/btn_plus"/>
+        android:layout_marginTop="10dp"
+        android:text="+"
+        android:textSize="50dp" />
 
     <Button
+        android:id="@+id/btn_multiply"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_below="@id/tv_x"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/btn_plus"
+        android:text="*"
+        android:textSize="50dp" />
+
+    <Button
         android:id="@+id/btn_minus"
-        android:text="-"
-        android:textSize="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/btn_plus"/>
-
-    <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/btn_division"
-        android:text="/"
-        android:textSize="50dp"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/btn_plus"
-        android:layout_toRightOf="@id/btn_minus"/>
+        android:layout_marginTop="10dp"
+        android:text="-"
+        android:textSize="50dp" />
+
+    <Button
+        android:id="@+id/btn_division"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/btn_plus"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/btn_minus"
+        android:text="/"
+        android:textSize="50dp" />
 
 
     <TextView
+        android:id="@+id/tv_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Result"
-        android:textSize="25dp"
+        android:layout_below="@id/btn_minus"
         android:layout_marginTop="30dp"
         android:paddingTop="20dp"
-        android:id="@+id/tv_result"
-        android:layout_below="@id/btn_minus"/>
+        android:text="Result"
+        android:textSize="25dp" />
 
     <EditText
+        android:id="@+id/edt_result"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:id="@+id/edt_result"
+        android:layout_below="@id/btn_minus"
         android:layout_marginTop="30dp"
-        android:gravity="center"
         android:layout_toRightOf="@id/tv_result"
-        android:layout_below="@id/btn_minus"/>
+        android:gravity="center" />
 
 
 </RelativeLayout>
