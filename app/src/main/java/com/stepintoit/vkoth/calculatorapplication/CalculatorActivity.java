@@ -87,6 +87,14 @@ public class CalculatorActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_X, edtValue1.getText().toString());
+        MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_Y, edtValue2.getText().toString());
+
+    }
+
     public void getResult(int operation) {
 
 
@@ -122,9 +130,9 @@ public class CalculatorActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.itm_logout:
 
-                MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_X, Double.toString(mValue1));
-                MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_Y, Double.toString(mValue2));
+
                 MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_USER);
+                MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
                 startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
                 finish();
                 return true;
