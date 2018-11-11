@@ -2,49 +2,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@color/Black"
+    android:gravity="center">
 
     <EditText
         android:id="@+id/edt_value1"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:background="@color/whitepure"
         android:gravity="center"
-        android:inputType="number|numberDecimal" />
+        android:hint="x"
+        android:inputType="number|numberDecimal"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/edt_value2"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/whitepure"
         android:layout_toRightOf="@id/edt_value1"
+        android:layout_marginLeft="30dp"
         android:gravity="center"
-        android:inputType="number|numberDecimal" />
+        android:hint="Y"
+        android:inputType="number|numberDecimal"
+        android:textSize="30dp" />
 
-    <TextView
-        android:id="@+id/tv_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_value1"
-        android:layout_marginLeft="35dp"
-        android:text="x"
-        android:textSize="50dp" />
-
-    <TextView
-        android:id="@+id/tv_y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_value2"
-        android:layout_marginLeft="35dp"
-        android:layout_toRightOf="@id/edt_value1"
-        android:text="Y"
-        android:textSize="50dp" />
 
     <Button
         android:id="@+id/btn_plus"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/tv_x"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/edt_value1"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_operation_background"
         android:text="+"
         android:textSize="50dp" />
 
@@ -52,9 +45,11 @@
         android:id="@+id/btn_multiply"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/tv_x"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/edt_value2"
         android:layout_toRightOf="@id/btn_plus"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_operation_background"
         android:text="*"
         android:textSize="50dp" />
 
@@ -63,7 +58,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@id/btn_plus"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_operation_background"
         android:text="-"
         android:textSize="50dp" />
 
@@ -71,30 +67,23 @@
         android:id="@+id/btn_division"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/btn_plus"
-        android:layout_marginTop="10dp"
+       android:layout_below="@id/btn_multiply"
         android:layout_toRightOf="@id/btn_minus"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/btn_operation_background"
         android:text="/"
         android:textSize="50dp" />
 
 
-    <TextView
-        android:id="@+id/tv_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_minus"
-        android:layout_marginTop="30dp"
-        android:paddingTop="20dp"
-        android:text="Result"
-        android:textSize="25dp" />
-
     <EditText
         android:id="@+id/edt_result"
-        android:layout_width="130dp"
+        android:layout_width="230dp"
         android:layout_height="50dp"
         android:layout_below="@id/btn_minus"
-        android:layout_marginTop="30dp"
-        android:layout_toRightOf="@id/tv_result"
+        android:layout_marginTop="50dp"
+        android:hint="Result"
+        android:background="@color/White"
         android:gravity="center" />
 
 
