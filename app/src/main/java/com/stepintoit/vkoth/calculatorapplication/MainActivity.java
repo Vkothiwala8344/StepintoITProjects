@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     else {
-                        startActivity(new Intent(MainActivity.this, CalculatorActivity.class));
+                        startActivity(new Intent(MainActivity.this, GetJsonActivity.class));
 
                     }
                     finish();

@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_TOKEN, tokenKey);
 
-                    startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
+                    startActivity(new Intent(LoginActivity.this, GetJsonActivity.class));
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
