@@ -6,12 +6,24 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -63,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private class LoginTask extends AsyncTask<String, Integer, Boolean> {
+    private class LoginTask extends AsyncTask<String, Integer, String> {
 
         String userName, passWord;
 
@@ -74,22 +86,66 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Boolean doInBackground(String... strings) {
-            userName = strings[0];
-            passWord = strings[1];
+        protected String doInBackground(String... strings) {
 
-            for (int i = 0; i < 10; i++) {
-                if (i % 3 == 0) {
-                    publishProgress(i);
+            String response="";
+
+            try {
+
+                userName = strings[0];
+                passWord = strings[1];
+
+                JSONObject requestJsonObject = new JSONObject();
+                requestJsonObject.put("email",userName);
+                requestJsonObject.put("password",passWord);
+
+                // This is getting the url from the string we passed in
+                URL url = new URL("https://reqres.in/api/login");
+
+                // Create the urlConnection
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+
+                urlConnection.setRequestMethod("POST");
+
+
+                // OPTIONAL - Sets an authorization header
+                urlConnection.setRequestProperty("Authorization", "someAuthString");
+
+                // Send the post body
+//                if (this.postData != null) {
+                Log.d("jasonlog",requestJsonObject.toString());
+                    OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+                    writer.write(requestJsonObject.toString());
+                    writer.flush();
+//                }
+
+                int statusCode = urlConnection.getResponseCode();
+
+
+                if (statusCode ==  200) {
+
+                    InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
+
+                    response = getStringFromInputStream(inputStream);
+
+                    // From here you can convert the string to JSON with whatever JSON parser you like to use
+                    // After converting the string to JSON, I call my custom callback. You can follow this process too, or you can implement the onPostExecute(Result) method
+                } else {
+                    // Status code is not 200
+                    // Do something to handle the error
                 }
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                //Log.d(TAG, e.getLocalizedMessage());
             }
-            return userName.equals("x@gmail.com") && passWord.equals("pass");
+
+            return response;
 
         }
 
@@ -101,11 +157,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
             pbLogin.setVisibility(View.INVISIBLE);
 
-            if (aBoolean) {
+            Log.d("responselog",response);
+            if (response != null && !response.isEmpty()) {
                 MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_USER, userName);
                 MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_PASSWORD, passWord);
                 startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
@@ -113,6 +170,16 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        public String getStringFromInputStream(InputStream stream) throws IOException
+        {
+            int n = 0;
+            char[] buffer = new char[1024 * 4];
+            InputStreamReader reader = new InputStreamReader(stream, "UTF8");
+            StringWriter writer = new StringWriter();
+            while (-1 != (n = reader.read(buffer))) writer.write(buffer, 0, n);
+            return writer.toString();
         }
     }
 }
