@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
                 finally
                 {
 
-                   String userName = MySharedPreference.getInstance(MainActivity.this).getValue(MySharedPreference.KEY_USER);
-                   String password = MySharedPreference.getInstance(MainActivity.this).getValue(MySharedPreference.KEY_PASSWORD);
-                    if(userName.isEmpty() && password.isEmpty())
+                   String token = MySharedPreference.getInstance(MainActivity.this).getValue(MySharedPreference.KEY_TOKEN);
+                  // String password = MySharedPreference.getInstance(MainActivity.this).getValue(MySharedPreference.KEY_PASSWORD);
+                    if(token.isEmpty())
                     {
                         startActivity(new Intent(MainActivity.this,LoginActivity.class));
                     }

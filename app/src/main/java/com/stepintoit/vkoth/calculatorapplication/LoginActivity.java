@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -88,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String response="";
+            String response = "";
 
             try {
 
@@ -96,8 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                 passWord = strings[1];
 
                 JSONObject requestJsonObject = new JSONObject();
-                requestJsonObject.put("email",userName);
-                requestJsonObject.put("password",passWord);
+                requestJsonObject.put("email", userName);
+                requestJsonObject.put("password", passWord);
 
                 // This is getting the url from the string we passed in
                 URL url = new URL("https://reqres.in/api/login");
@@ -119,16 +120,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Send the post body
 //                if (this.postData != null) {
-                Log.d("jasonlog",requestJsonObject.toString());
-                    OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
-                    writer.write(requestJsonObject.toString());
-                    writer.flush();
+                Log.d("jasonlog", requestJsonObject.toString());
+                OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+                writer.write(requestJsonObject.toString());
+                writer.flush();
 //                }
 
                 int statusCode = urlConnection.getResponseCode();
 
 
-                if (statusCode ==  200) {
+                if (statusCode == 200) {
 
                     InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
 
@@ -161,19 +162,30 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(response);
             pbLogin.setVisibility(View.INVISIBLE);
 
-            Log.d("responselog",response);
+            Log.d("responselog", response);
             if (response != null && !response.isEmpty()) {
-                MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_USER, userName);
-                MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_PASSWORD, passWord);
-                startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
-                finish();
+
+                try {
+                    JSONObject tokenJson = new JSONObject(response);
+                    // JSONObject token = tokenJson.getJSONObject("token");
+                    String tokenKey = tokenJson.getString("token");
+                    Log.d("token", tokenKey);
+
+                    MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_TOKEN, tokenKey);
+
+                    startActivity(new Intent(LoginActivity.this, CalculatorActivity.class));
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             } else {
                 Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
             }
         }
 
-        public String getStringFromInputStream(InputStream stream) throws IOException
-        {
+        public String getStringFromInputStream(InputStream stream) throws IOException {
             int n = 0;
             char[] buffer = new char[1024 * 4];
             InputStreamReader reader = new InputStreamReader(stream, "UTF8");

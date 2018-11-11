@@ -131,8 +131,8 @@ public class CalculatorActivity extends AppCompatActivity {
             case R.id.itm_logout:
 
 
-                MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_USER);
-                MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
+                MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_TOKEN);
+                //MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
                 startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
                 finish();
                 return true;

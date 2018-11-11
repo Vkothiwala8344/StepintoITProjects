@@ -8,6 +8,7 @@ public class MySharedPreference {
     public static final String MYPREFERENCE = "mypref";
     public static final String KEY_USER = "userKey";
     public static final String KEY_PASSWORD = "passKey";
+    public static final String KEY_TOKEN = "tokenKey";
     public static final String KEY_X = "x";
     public static final String KEY_Y = "y";
 
