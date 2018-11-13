@@ -1,12 +1,16 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
-import android.content.Intent;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,25 +22,54 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
-public class GetJsonActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity {
 
     TextView tvJsonData;
+    private ArrayList<ProductModel> productList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ProductAdapter productAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_json);
+        setContentView(R.layout.activity_product);
 
-        tvJsonData = (TextView) findViewById(R.id.tv_jsondata);
-        new JsonTask().execute();
+       // tvJsonData = (TextView) findViewById(R.id.tv_jsondata);
+        //check for internet connection
+      //pull data from server
 
+            new JsonTask().execute();
+
+
+//Toast.makeText(getApplicationContext(),"vabiu",Toast.LENGTH_SHORT).show();
+
+//        ProductModel productModel = new ProductModel();
+//        productModel.setProductName("iphone");
+//        productList.add(productModel);
+//
+//      //  ProductModel productModel1 = new ProductModel();
+//        productModel.setProductName("ine");
+//        productList.add(productModel);
+
+       // productAdapter.notifyDataSetChanged();
+
+            }
+
+    boolean checkConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private class JsonTask extends AsyncTask<String, Void, String> {
@@ -96,7 +129,7 @@ public class GetJsonActivity extends AppCompatActivity {
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
             //  pbLogin.setVisibility(View.INVISIBLE);
-            tvJsonData.setText(response);
+           // tvJsonData.setText(response);
             if (response != null && !response.isEmpty()) {
 
                 try {
@@ -118,6 +151,8 @@ public class GetJsonActivity extends AppCompatActivity {
 
                         String productName = productObject.getString("name");
                         productModel.setProductName(productName);
+
+
                         Log.d("getjsonActivity", "product name = " + productName);
 
                         ArrayList<String> imageList = new ArrayList<>();
@@ -147,10 +182,22 @@ public class GetJsonActivity extends AppCompatActivity {
 
                         Log.d("getjsonActivity", "Location: Latitude =" + latitude + " longitude = " + longitude);
 
-                        postProductModelArrayList.add(productModel);
+
+                        productList.add(productModel);
+                      //  productList.add(productModel);
+                       // productList = postProductModelArrayList;
                     }
 
-                    for(int f=0;f<postProductModelArrayList.size();f++) {
+                    recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+                    productAdapter = new ProductAdapter(productList);
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(productAdapter);
+                  //  return postProductModelArrayList;
+
+                  /*  for(int f=0;f<postProductModelArrayList.size();f++) {
 
                         ProductModel productModel = postProductModelArrayList.get(f);
 
@@ -175,7 +222,7 @@ public class GetJsonActivity extends AppCompatActivity {
 
 
 
-                    }
+                    } */
 
 
                 } catch (JSONException e) {
@@ -184,8 +231,10 @@ public class GetJsonActivity extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(GetJsonActivity.this, "Json data fetching failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductActivity.this, "Json data fetching failed", Toast.LENGTH_SHORT).show();
             }
+
+
         }
 
         public String getStringFromInputStream(InputStream stream) throws IOException {

@@ -1,8 +1,6 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     else {
-                        startActivity(new Intent(MainActivity.this, GetJsonActivity.class));
+                        startActivity(new Intent(MainActivity.this, ProductActivity.class));
 
                     }
                     finish();

@@ -1,6 +1,5 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -173,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     MySharedPreference.getInstance(LoginActivity.this).putValue(MySharedPreference.KEY_TOKEN, tokenKey);
 
-                    startActivity(new Intent(LoginActivity.this, GetJsonActivity.class));
+                    startActivity(new Intent(LoginActivity.this, ProductActivity.class));
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
