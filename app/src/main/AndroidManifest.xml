@@ -25,6 +25,7 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".CalculatorActivity"/>
         <activity android:name=".ProductActivity"/>
+        <activity android:name=".ProductInfoActivity"/>
     </application>
 
 </manifest>

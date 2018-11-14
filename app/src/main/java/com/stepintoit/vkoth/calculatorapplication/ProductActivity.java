@@ -1,16 +1,20 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Movie;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -190,39 +194,13 @@ public class ProductActivity extends AppCompatActivity {
 
                     recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-                    productAdapter = new ProductAdapter(productList);
+                    productAdapter = new ProductAdapter(ProductActivity.this,productList);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.addItemDecoration(new DividerItemDecoration(ProductActivity.this, LinearLayoutManager.VERTICAL));
                     recyclerView.setAdapter(productAdapter);
-                  //  return postProductModelArrayList;
 
-                  /*  for(int f=0;f<postProductModelArrayList.size();f++) {
-
-                        ProductModel productModel = postProductModelArrayList.get(f);
-
-                        String productName = productModel.getProductName();
-                        Log.d("ModelData",Integer.toString(f+1) +">---ProductName = "+productName+"\n");
-
-                        for(int a=0;a<productModel.getProductImage().size();a++) {
-                            String images = productModel.getProductImage().get(a);
-                            Log.d("ModelData","Images : "+images+"\n");
-                        }
-
-                        for(int b=0;b<productModel.getTags().size();b++) {
-                            String tags = productModel.getTags().get(b);
-                            Log.d("ModelData","Tags : "+tags+"\n");
-                        }
-
-                        double lat = productModel.getWarehouseLocationModel().getLatitude();
-                        double longi = productModel.getWarehouseLocationModel().getLongitude();
-
-                        Log.d("ModelData","Location : Latitude = "+lat+" Longitude = "+longi+"\n");
-                        Log.d("ModelData","------------------------------------------------------\n");
-
-
-
-                    } */
 
 
                 } catch (JSONException e) {
