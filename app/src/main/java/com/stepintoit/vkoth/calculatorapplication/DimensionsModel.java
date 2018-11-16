@@ -1,6 +1,8 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
-public class DimensionsModel {
+import java.io.Serializable;
+
+public class DimensionsModel implements Serializable{
 
     private float length;
     private float width;

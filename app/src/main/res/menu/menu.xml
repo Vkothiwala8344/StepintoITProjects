@@ -10,5 +10,10 @@
         android:icon="@android:drawable/ic_dialog_info"
         android:title="Logout"
         app:showAsAction="never"></item>
+    <item android:id="@+id/itm_favourite"
+        android:title="Favourite"
+        app:showAsAction="never">
+
+    </item>
 
 </menu>

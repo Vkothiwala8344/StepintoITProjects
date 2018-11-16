@@ -26,6 +26,7 @@
         <activity android:name=".CalculatorActivity"/>
         <activity android:name=".ProductActivity"/>
         <activity android:name=".ProductInfoActivity"/>
+        <activity android:name=".FavouriteProductActivity"/>
     </application>
 
 </manifest>

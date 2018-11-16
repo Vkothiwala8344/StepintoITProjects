@@ -1,6 +1,8 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
-public class WarehouseLocationModel {
+import java.io.Serializable;
+
+public class WarehouseLocationModel implements Serializable{
 
     private double latitude;
     private double longitude;

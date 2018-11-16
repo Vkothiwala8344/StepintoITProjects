@@ -14,6 +14,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,26 +47,8 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-       // tvJsonData = (TextView) findViewById(R.id.tv_jsondata);
-        //check for internet connection
-      //pull data from server
-
-            new JsonTask().execute();
-
-
-//Toast.makeText(getApplicationContext(),"vabiu",Toast.LENGTH_SHORT).show();
-
-//        ProductModel productModel = new ProductModel();
-//        productModel.setProductName("iphone");
-//        productList.add(productModel);
-//
-//      //  ProductModel productModel1 = new ProductModel();
-//        productModel.setProductName("ine");
-//        productList.add(productModel);
-
-       // productAdapter.notifyDataSetChanged();
-
-            }
+        new JsonTask().execute();
+    }
 
     boolean checkConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -74,6 +58,12 @@ public class ProductActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     private class JsonTask extends AsyncTask<String, Void, String> {
@@ -133,7 +123,7 @@ public class ProductActivity extends AppCompatActivity {
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
             //  pbLogin.setVisibility(View.INVISIBLE);
-           // tvJsonData.setText(response);
+            // tvJsonData.setText(response);
             if (response != null && !response.isEmpty()) {
 
                 try {
@@ -188,19 +178,11 @@ public class ProductActivity extends AppCompatActivity {
 
 
                         productList.add(productModel);
-                      //  productList.add(productModel);
-                       // productList = postProductModelArrayList;
+                        //  productList.add(productModel);
+                        // productList = postProductModelArrayList;
                     }
 
-                    recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-                    productAdapter = new ProductAdapter(ProductActivity.this,productList);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    recyclerView.setLayoutManager(mLayoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.addItemDecoration(new DividerItemDecoration(ProductActivity.this, LinearLayoutManager.VERTICAL));
-                    recyclerView.setAdapter(productAdapter);
-
+                   sendProductListToRecycler();
 
 
                 } catch (JSONException e) {
@@ -223,5 +205,51 @@ public class ProductActivity extends AppCompatActivity {
             while (-1 != (n = reader.read(buffer))) writer.write(buffer, 0, n);
             return writer.toString();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itm_logout:
+
+                MySharedPreference.getInstance(ProductActivity.this).deleteValue(MySharedPreference.KEY_TOKEN);
+                //MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
+                startActivity(new Intent(ProductActivity.this, LoginActivity.class));
+                finish();
+                return true;
+
+            case R.id.itm_favourite:
+
+                Intent i = new Intent(ProductActivity.this, FavouriteProductActivity.class);
+
+                Bundle bundle = new Bundle();
+                // bundle.putSerializable("Fav",productList.get(0));
+                int x = 0;
+                for (int a = 0; a < productList.size(); a++) {
+
+                    if (productList.get(a).isFavouriteFlag()) {
+                        //i.putExtra("Fav"+x, productList.get(a).getProductName());
+                        bundle.putSerializable("Fav" + x, productList.get(a));
+                        x++;
+                    }
+                }
+                i.putExtra("count", x);
+                i.putExtras(bundle);
+                startActivity(i);
+
+                //Toast.makeText(getApplicationContext(),"favourite opened",Toast.LENGTH_SHORT).show();
+        }
+        return (super.onOptionsItemSelected(item));
+    }
+
+    void sendProductListToRecycler()
+    {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        productAdapter = new ProductAdapter(ProductActivity.this, productList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(ProductActivity.this, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(productAdapter);
     }
 }

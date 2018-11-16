@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, tags, location, imageLinks;
-        public ImageView pImage;
+        public ImageView pImage,fImageview;
 
 
 
@@ -38,6 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             tags = (TextView) view.findViewById(R.id.tv_product_tags);
             imageLinks = (TextView) view.findViewById(R.id.tv_product_images);
             pImage = (ImageView) view.findViewById(R.id.iv_productImage);
+            fImageview = (ImageView)view.findViewById(R.id.iv_favourite);
 
 
         }
@@ -62,6 +64,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
+
         final ProductModel productModel = productModelList.get(position);
         holder.name.setText(productModel.getProductName());
 
@@ -77,6 +80,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         } while (i < productModel.getProductImage().size() - 1);
         holder.imageLinks.append(productModel.getProductImage().get(i));
         holder.pImage.setImageResource(R.drawable.iphone);
+
+        if(productModel.isFavouriteFlag())
+        {
+            holder.fImageview.setImageResource(R.drawable.ic_heart_red);
+            productModel.setFavouriteFlag(true);
+        }
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -129,6 +138,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 i.putExtra("ProductLocationLongitude",productModel.getWarehouseLocationModel().getLongitude());
                 context.startActivity(i);
                 }
+        });
+
+
+        holder.fImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!productModel.isFavouriteFlag())
+                {
+                    holder.fImageview.setImageResource(R.drawable.ic_heart_red);
+                    productModel.setFavouriteFlag(true);
+                   // favP.add(productModel.getProductName());
+                  //  Log.d("ProductAdapter","productName"+favP.get(position));
+
+                }
+                else
+                {
+                    holder.fImageview.setImageResource(R.drawable.ic_heart_white);
+                    productModel.setFavouriteFlag(false);
+                  //  favP.remove(position);
+
+                }
+
+
+            }
         });
 
     }

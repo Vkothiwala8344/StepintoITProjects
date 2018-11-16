@@ -1,8 +1,9 @@
 package com.stepintoit.vkoth.calculatorapplication;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProductModel {
+public class ProductModel implements Serializable {
 
     private String productId;
     private String productName;
@@ -14,6 +15,17 @@ public class ProductModel {
     private ArrayList<String> tags;
     private DimensionsModel dimensionsModel;
     private WarehouseLocationModel warehouseLocationModel;
+
+    private boolean favouriteFlag = false;
+
+    public boolean isFavouriteFlag() {
+        return favouriteFlag;
+    }
+
+    public void setFavouriteFlag(boolean favouriteFlag) {
+        this.favouriteFlag = favouriteFlag;
+    }
+
 
     public DimensionsModel getDimensionsModel() {
         return dimensionsModel;

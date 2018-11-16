@@ -14,7 +14,7 @@
         android:src="@drawable/ic_launcher_background" />
     <TextView
         android:id="@+id/tv_product_name"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:textColor="@color/Blue"
@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/tv_product_images"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Phone images"
         android:layout_marginLeft="10dp"
@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/tv_product_tags"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Phone Tags"
         android:layout_marginLeft="10dp"
@@ -47,12 +47,22 @@
 
     <TextView
         android:id="@+id/tv_product_location"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:textColor="@color/White"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/iv_productImage"
         android:layout_below="@id/tv_product_tags"
         android:text="Location"/>
+
+    <ImageView
+        android:id="@+id/iv_favourite"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_heart_white" />
+
 
 </RelativeLayout>
