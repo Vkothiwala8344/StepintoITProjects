@@ -24,12 +24,12 @@ public class FavouriteProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_favourite);
 
 
-        int count = getIntent().getExtras().getInt("count");
-        for (int i = 0; i < count; i++) {
-            ProductModel productModel = (ProductModel) getIntent().getSerializableExtra("Fav" + i);
-            favouriteList.add(productModel);
-              Log.d("FavActivity", productModel.getProductName());
-              }
+//        int count = getIntent().getExtras().getInt("count");
+//        for (int i = 0; i < count; i++) {
+//            ProductModel productModel = (ProductModel) getIntent().getSerializableExtra("Fav" + i);
+//            favouriteList.add(productModel);
+//            //  Log.d("FavActivity", productModel.getProductName());
+//              }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 

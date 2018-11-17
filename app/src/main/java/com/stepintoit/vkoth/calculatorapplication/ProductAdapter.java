@@ -66,26 +66,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
 
         final ProductModel productModel = productModelList.get(position);
-        holder.name.setText(productModel.getProductName());
+        holder.name.setText(productModel.getName());
 
-        holder.location.setText("Latitude : " + Double.toString(productModel.getWarehouseLocationModel().getLatitude()) + ", Longitude : " +
-                Double.toString(productModel.getWarehouseLocationModel().getLongitude()));
+        holder.location.setText("Latitude : " + Double.toString(productModel.getWarehouseLocation().getLatitude()) + ", Longitude : " +
+                Double.toString(productModel.getWarehouseLocation().getLongitude()));
         holder.tags.setText("Tags : " + productModel.getTags().get(0) + "," + productModel.getTags().get(1));
         holder.imageLinks.setText("Image links : ");
         int i = 0;
         do {
-            holder.imageLinks.append(productModel.getProductImage().get(i) + "\n");
+            holder.imageLinks.append(productModel.getImages().get(i) + "\n");
             i++;
 
-        } while (i < productModel.getProductImage().size() - 1);
-        holder.imageLinks.append(productModel.getProductImage().get(i));
+        } while (i < productModel.getImages().size() - 1);
+        holder.imageLinks.append(productModel.getImages().get(i));
         holder.pImage.setImageResource(R.drawable.iphone);
 
-        if(productModel.isFavouriteFlag())
-        {
-            holder.fImageview.setImageResource(R.drawable.ic_heart_red);
-            productModel.setFavouriteFlag(true);
-        }
+//        if(productModel.isFavouriteFlag())
+//        {
+//            holder.fImageview.setImageResource(R.drawable.ic_heart_red);
+//            productModel.setFavouriteFlag(true);
+//        }
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -123,47 +123,47 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(context, ProductInfoActivity.class);
-                i.putExtra("ProductName",productModel.getProductName().toString());
-
-                //pas simage bundle
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("ProductImageLinks",productModel.getProductImage());
-                bundle.putStringArrayList("ProductTags",productModel.getTags());
-                i.putExtras(bundle);
-
-
-                // i.putExtra("ProductTag",productModel.getTags());
-                i.putExtra("ProductLocationLatitude",productModel.getWarehouseLocationModel().getLatitude());
-                i.putExtra("ProductLocationLongitude",productModel.getWarehouseLocationModel().getLongitude());
-                context.startActivity(i);
+//                Intent i = new Intent(context, ProductInfoActivity.class);
+//                i.putExtra("ProductName",productModel.getName().toString());
+//
+//                //pas simage bundle
+////                Bundle bundle = new Bundle();
+////                bundle.putStringArrayList("ProductImageLinks",productModel.getImages());
+////                bundle.putStringArrayList("ProductTags",productModel.getTags());
+////                i.putExtras(bundle);
+//
+//
+//                // i.putExtra("ProductTag",productModel.getTags());
+//                i.putExtra("ProductLocationLatitude",productModel.getWarehouseLocation().getLatitude());
+//                i.putExtra("ProductLocationLongitude",productModel.getWarehouseLocation().getLongitude());
+//                context.startActivity(i);
                 }
         });
 
 
-        holder.fImageview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(!productModel.isFavouriteFlag())
-                {
-                    holder.fImageview.setImageResource(R.drawable.ic_heart_red);
-                    productModel.setFavouriteFlag(true);
-                   // favP.add(productModel.getProductName());
-                  //  Log.d("ProductAdapter","productName"+favP.get(position));
-
-                }
-                else
-                {
-                    holder.fImageview.setImageResource(R.drawable.ic_heart_white);
-                    productModel.setFavouriteFlag(false);
-                  //  favP.remove(position);
-
-                }
-
-
-            }
-        });
+//        holder.fImageview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if(!productModel.isFavouriteFlag())
+//                {
+//                    holder.fImageview.setImageResource(R.drawable.ic_heart_red);
+//                    productModel.setFavouriteFlag(true);
+//                   // favP.add(productModel.getProductName());
+//                  //  Log.d("ProductAdapter","productName"+favP.get(position));
+//
+//                }
+//                else
+//                {
+//                    holder.fImageview.setImageResource(R.drawable.ic_heart_white);
+//                    productModel.setFavouriteFlag(false);
+//                  //  favP.remove(position);
+//
+//                }
+//
+//
+//            }
+//        });
 
     }
 

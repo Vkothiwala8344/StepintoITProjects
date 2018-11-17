@@ -1,47 +1,45 @@
+
 package com.stepintoit.vkoth.calculatorapplication;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class ProductModel implements Serializable {
+public class ProductModel {
 
+    @SerializedName("productId")
+    @Expose
     private String productId;
-    private String productName;
-    private String productDescription;
-    private ArrayList<String> productImage;
-    private String phoneNumber;
-    private String webAddress;
-    private int price;
-    private ArrayList<String> tags;
-    private DimensionsModel dimensionsModel;
-    private WarehouseLocationModel warehouseLocationModel;
-
-    private boolean favouriteFlag = false;
-
-    public boolean isFavouriteFlag() {
-        return favouriteFlag;
-    }
-
-    public void setFavouriteFlag(boolean favouriteFlag) {
-        this.favouriteFlag = favouriteFlag;
-    }
-
-
-    public DimensionsModel getDimensionsModel() {
-        return dimensionsModel;
-    }
-
-    public void setDimensionsModel(DimensionsModel dimensionsModel) {
-        this.dimensionsModel = dimensionsModel;
-    }
-
-    public WarehouseLocationModel getWarehouseLocationModel() {
-        return warehouseLocationModel;
-    }
-
-    public void setWarehouseLocationModel(WarehouseLocationModel warehouseLocationModel) {
-        this.warehouseLocationModel = warehouseLocationModel;
-    }
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("weight")
+    @Expose
+    private String weight;
+    @SerializedName("images")
+    @Expose
+    private List<String> images = null;
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+    @SerializedName("web")
+    @Expose
+    private String web;
+    @SerializedName("price")
+    @Expose
+    private Integer price;
+    @SerializedName("tags")
+    @Expose
+    private List<String> tags = null;
+    @SerializedName("dimensions")
+    @Expose
+    private Dimensions dimensions;
+    @SerializedName("warehouseLocation")
+    @Expose
+    private WarehouseLocation warehouseLocation;
 
     public String getProductId() {
         return productId;
@@ -51,61 +49,84 @@ public class ProductModel implements Serializable {
         this.productId = productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-
-
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getWeight() {
+        return weight;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
-    public String getWebAddress() {
-        return webAddress;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setWebAddress(String webAddress) {
-        this.webAddress = webAddress;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
-    public int getPrice() {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public ArrayList<String> getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(ArrayList<String> productImage) {
-        this.productImage = productImage;
-    }
-
-    public ArrayList<String> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(Dimensions dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public WarehouseLocation getWarehouseLocation() {
+        return warehouseLocation;
+    }
+
+    public void setWarehouseLocation(WarehouseLocation warehouseLocation) {
+        this.warehouseLocation = warehouseLocation;
+    }
+
 }
