@@ -1,4 +1,4 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.data;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -9,7 +9,7 @@ public class APIClient {
 
     private static Retrofit retrofit;
 
-    static Retrofit getClient() {
+    public static Retrofit getClient() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

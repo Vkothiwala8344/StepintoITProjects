@@ -1,14 +1,15 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import com.stepintoit.vkoth.calculatorapplication.adapter.FavouriteAdapter;
+import com.stepintoit.vkoth.calculatorapplication.model.ProductModel;
+import com.stepintoit.vkoth.calculatorapplication.R;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,8 @@ public class FavouriteProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_favourite);
 
 
+        ArrayList<ProductModel> favouriteList;
+        favouriteList = (ArrayList<ProductModel>)getIntent().getSerializableExtra("favouriteList");
 //        int count = getIntent().getExtras().getInt("count");
 //        for (int i = 0; i < count; i++) {
 //            ProductModel productModel = (ProductModel) getIntent().getSerializableExtra("Fav" + i);

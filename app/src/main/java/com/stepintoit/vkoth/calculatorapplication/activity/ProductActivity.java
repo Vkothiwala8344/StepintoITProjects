@@ -1,38 +1,28 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.stepintoit.vkoth.calculatorapplication.data.APIClient;
+import com.stepintoit.vkoth.calculatorapplication.data.APIInterface;
+import com.stepintoit.vkoth.calculatorapplication.adapter.ProductAdapter;
+import com.stepintoit.vkoth.calculatorapplication.R;
+import com.stepintoit.vkoth.calculatorapplication.data.MySharedPreference;
+import com.stepintoit.vkoth.calculatorapplication.model.ProductModel;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -212,40 +202,37 @@ public class ProductActivity extends AppCompatActivity {
 //        }
 //    }
 //
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.itm_logout:
-//
-//                MySharedPreference.getInstance(ProductActivity.this).deleteValue(MySharedPreference.KEY_TOKEN);
-//                //MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
-//                startActivity(new Intent(ProductActivity.this, LoginActivity.class));
-//                finish();
-//                return true;
-//
-//            case R.id.itm_favourite:
-//
-//                Intent i = new Intent(ProductActivity.this, FavouriteProductActivity.class);
-//
-//                Bundle bundle = new Bundle();
-//                // bundle.putSerializable("Fav",productList.get(0));
-//                int x = 0;
-//                for (int a = 0; a < productList.size(); a++) {
-//
-//                    if (productList.get(a).isFavouriteFlag()) {
-//                        //i.putExtra("Fav"+x, productList.get(a).getProductName());
-//                        bundle.putSerializable("Fav" + x, productList.get(a));
-//                        x++;
-//                    }
-//                }
-//                i.putExtra("count", x);
-//                i.putExtras(bundle);
-//                startActivity(i);
-//
-//                //Toast.makeText(getApplicationContext(),"favourite opened",Toast.LENGTH_SHORT).show();
-//        }
-//        return (super.onOptionsItemSelected(item));
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itm_logout:
+
+                MySharedPreference.getInstance(ProductActivity.this).deleteValue(MySharedPreference.KEY_TOKEN);
+                //MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
+                startActivity(new Intent(ProductActivity.this, LoginActivity.class));
+                finish();
+                return true;
+
+            case R.id.itm_favourite:
+
+                ArrayList<ProductModel> favouriteList = new ArrayList<ProductModel>();
+                Intent i = new Intent(ProductActivity.this, FavouriteProductActivity.class);
+
+                for(int a=0;a<productList.size();a++)
+                {
+                 if(productList.get(a).isFavouriteFlag())
+                 {
+                     favouriteList.add(productList.get(a));
+                 }
+                }
+                i.putExtra("favouriteList",favouriteList);
+
+                startActivity(i);
+
+                //Toast.makeText(getApplicationContext(),"favourite opened",Toast.LENGTH_SHORT).show();
+        }
+        return (super.onOptionsItemSelected(item));
+    }
 
     void sendProductListToRecycler() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

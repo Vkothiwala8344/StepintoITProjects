@@ -1,4 +1,4 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,17 +32,17 @@ public class MySharedPreference {
 
     }
 
-    void putValue(String key, String value) {
+    public void putValue(String key, String value) {
         editor.putString(key, value);
         editor.commit();
     }
 
-    String getValue(String key) {
+    public String getValue(String key) {
 
         return sharedPreferences.getString(key, "");
     }
 
-    void deleteValue(String key)
+    public void deleteValue(String key)
     {
         editor.remove(key);
         editor.commit();

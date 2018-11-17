@@ -1,6 +1,5 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.adapter;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,16 +7,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.stepintoit.vkoth.calculatorapplication.R;
+import com.stepintoit.vkoth.calculatorapplication.activity.ProductInfoActivity;
+import com.stepintoit.vkoth.calculatorapplication.model.ProductModel;
+
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
@@ -123,47 +123,47 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             @Override
             public void onClick(View v) {
 
-//                Intent i = new Intent(context, ProductInfoActivity.class);
-//                i.putExtra("ProductName",productModel.getName().toString());
-//
-//                //pas simage bundle
-////                Bundle bundle = new Bundle();
-////                bundle.putStringArrayList("ProductImageLinks",productModel.getImages());
-////                bundle.putStringArrayList("ProductTags",productModel.getTags());
-////                i.putExtras(bundle);
-//
-//
-//                // i.putExtra("ProductTag",productModel.getTags());
-//                i.putExtra("ProductLocationLatitude",productModel.getWarehouseLocation().getLatitude());
-//                i.putExtra("ProductLocationLongitude",productModel.getWarehouseLocation().getLongitude());
-//                context.startActivity(i);
+                Intent i = new Intent(context, ProductInfoActivity.class);
+                i.putExtra("ProductName",productModel.getName().toString());
+
+                //pas simage bundle
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("ProductImageLinks",productModel.getImages());
+                bundle.putStringArrayList("ProductTags",productModel.getTags());
+                i.putExtras(bundle);
+
+
+                // i.putExtra("ProductTag",productModel.getTags());
+                i.putExtra("ProductLocationLatitude",productModel.getWarehouseLocation().getLatitude());
+                i.putExtra("ProductLocationLongitude",productModel.getWarehouseLocation().getLongitude());
+                context.startActivity(i);
                 }
         });
 
 
-//        holder.fImageview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if(!productModel.isFavouriteFlag())
-//                {
-//                    holder.fImageview.setImageResource(R.drawable.ic_heart_red);
-//                    productModel.setFavouriteFlag(true);
-//                   // favP.add(productModel.getProductName());
-//                  //  Log.d("ProductAdapter","productName"+favP.get(position));
-//
-//                }
-//                else
-//                {
-//                    holder.fImageview.setImageResource(R.drawable.ic_heart_white);
-//                    productModel.setFavouriteFlag(false);
-//                  //  favP.remove(position);
-//
-//                }
-//
-//
-//            }
-//        });
+        holder.fImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!productModel.isFavouriteFlag())
+                {
+                    holder.fImageview.setImageResource(R.drawable.ic_heart_red);
+                    productModel.setFavouriteFlag(true);
+                   // favP.add(productModel.getProductName());
+                  //  Log.d("ProductAdapter","productName"+favP.get(position));
+
+                }
+                else
+                {
+                    holder.fImageview.setImageResource(R.drawable.ic_heart_white);
+                    productModel.setFavouriteFlag(false);
+                  //  favP.remove(position);
+
+                }
+
+
+            }
+        });
 
     }
 

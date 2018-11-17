@@ -1,15 +1,29 @@
 
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProductModel {
+public class ProductModel implements Serializable {
 
     @SerializedName("productId")
     @Expose
     private String productId;
+
+    public boolean isFavouriteFlag() {
+        return favouriteFlag;
+    }
+
+    public void setFavouriteFlag(boolean favouriteFlag) {
+        this.favouriteFlag = favouriteFlag;
+    }
+
+    @SerializedName("favouriteFlag")
+    @Expose
+    private boolean favouriteFlag = false;
     @SerializedName("name")
     @Expose
     private String name;
@@ -21,7 +35,7 @@ public class ProductModel {
     private String weight;
     @SerializedName("images")
     @Expose
-    private List<String> images = null;
+    private ArrayList<String> images = null;
     @SerializedName("phone")
     @Expose
     private String phone;
@@ -33,7 +47,7 @@ public class ProductModel {
     private Integer price;
     @SerializedName("tags")
     @Expose
-    private List<String> tags = null;
+    private ArrayList<String> tags = null;
     @SerializedName("dimensions")
     @Expose
     private Dimensions dimensions;
@@ -73,11 +87,11 @@ public class ProductModel {
         this.weight = weight;
     }
 
-    public List<String> getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(ArrayList<String> images) {
         this.images = images;
     }
 
@@ -105,11 +119,11 @@ public class ProductModel {
         this.price = price;
     }
 
-    public List<String> getTags() {
+    public ArrayList<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
 

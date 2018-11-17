@@ -1,8 +1,10 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.stepintoit.vkoth.calculatorapplication.data.MySharedPreference;
 
 public class MainActivity extends AppCompatActivity {
 

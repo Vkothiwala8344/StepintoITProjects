@@ -1,4 +1,4 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.stepintoit.vkoth.calculatorapplication.data.MySharedPreference;
+import com.stepintoit.vkoth.calculatorapplication.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

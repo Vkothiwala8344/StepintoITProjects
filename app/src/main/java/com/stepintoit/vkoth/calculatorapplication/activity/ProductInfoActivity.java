@@ -1,4 +1,4 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.stepintoit.vkoth.calculatorapplication.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

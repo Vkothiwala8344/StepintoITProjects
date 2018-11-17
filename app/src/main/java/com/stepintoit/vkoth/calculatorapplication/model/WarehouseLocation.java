@@ -1,10 +1,12 @@
 
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WarehouseLocation {
+import java.io.Serializable;
+
+public class WarehouseLocation implements Serializable{
 
     @SerializedName("latitude")
     @Expose

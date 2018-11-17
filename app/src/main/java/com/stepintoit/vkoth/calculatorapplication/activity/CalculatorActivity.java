@@ -1,4 +1,4 @@
-package com.stepintoit.vkoth.calculatorapplication;
+package com.stepintoit.vkoth.calculatorapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.stepintoit.vkoth.calculatorapplication.data.MySharedPreference;
+import com.stepintoit.vkoth.calculatorapplication.R;
 
 public class CalculatorActivity extends AppCompatActivity {
 
