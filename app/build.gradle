@@ -39,4 +39,8 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
+    //to view data of database and shared preference
+
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+
 }

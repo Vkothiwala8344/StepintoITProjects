@@ -4,6 +4,7 @@ package com.stepintoit.vkoth.calculatorapplication.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,13 +14,6 @@ public class ProductModel implements Serializable {
     @Expose
     private String productId;
 
-    public boolean isFavouriteFlag() {
-        return favouriteFlag;
-    }
-
-    public void setFavouriteFlag(boolean favouriteFlag) {
-        this.favouriteFlag = favouriteFlag;
-    }
 
     @SerializedName("favouriteFlag")
     @Expose
@@ -141,6 +135,14 @@ public class ProductModel implements Serializable {
 
     public void setWarehouseLocation(WarehouseLocation warehouseLocation) {
         this.warehouseLocation = warehouseLocation;
+    }
+
+    public boolean isFavouriteFlag() {
+        return favouriteFlag;
+    }
+
+    public void setFavouriteFlag(boolean favouriteFlag) {
+        this.favouriteFlag = favouriteFlag;
     }
 
 }
