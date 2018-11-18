@@ -103,7 +103,14 @@ public class ProductActivity extends AppCompatActivity {
 
     void sendProductListToRecycler() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        productAdapter = new ProductAdapter(ProductActivity.this, productList);
+        productAdapter = new ProductAdapter(ProductActivity.this, productList, new ProductAdapter.OnClickListener() {
+            @Override
+            public void setOnClickListener(ProductModel productModel) {
+                Intent i = new Intent(ProductActivity.this, ProductInfoActivity.class);
+                i.putExtra("ProductName",productModel);
+                startActivity(i);
+            }
+        });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

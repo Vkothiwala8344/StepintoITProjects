@@ -3,54 +3,103 @@ package com.stepintoit.vkoth.calculatorapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.stepintoit.vkoth.calculatorapplication.R;
+import com.stepintoit.vkoth.calculatorapplication.fragments.DaetailsFragment;
+import com.stepintoit.vkoth.calculatorapplication.fragments.MapFragment;
+import com.stepintoit.vkoth.calculatorapplication.model.ProductModel;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
-    TextView tvProductName,tvImageLinks,tvTags,tvLocation;
+    ViewPager viewPager;
+    PagerSlidingTabStrip pagerTabStrip;
+    ProductModel productModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
 
-        tvProductName = (TextView)findViewById(R.id.tv_product_name);
-        tvImageLinks = (TextView)findViewById(R.id.tv_image_links);
-        tvTags = (TextView)findViewById(R.id.tv_tags);
-        tvLocation = (TextView)findViewById(R.id.tv_location);
+        pagerTabStrip = (PagerSlidingTabStrip) findViewById(R.id.pager_header);
+        viewPager = (ViewPager)findViewById(R.id.view_pager);
+        productModel = (ProductModel)getIntent().getSerializableExtra("ProductName");
 
 
-        Intent intentData = getIntent();
-        String productName = intentData.getExtras().getString("ProductName");
-        tvProductName.append(productName);
+        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
-        Bundle bundle = getIntent().getExtras();
-        //get image links from arraylist
-        ArrayList<String> productImageLinks = bundle.getStringArrayList("ProductImageLinks");
-        int i=0;
-        do{
-            tvImageLinks.append(productImageLinks.get(i)+"\n");
-            i++;
-        }while (i<productImageLinks.size()-1);
-        tvImageLinks.append(productImageLinks.get(i));
 
-        //get tags from arraylist
-        ArrayList<String> productTags = bundle.getStringArrayList("ProductTags");
-        Log.d("ProductINfo","tags:"+productTags.size());
-        tvTags.append(productTags.get(0)+", "+productTags.get(1));
 
-        double latitude = bundle.getDouble("ProductLocationLatitude");
-        double longitude = bundle.getDouble("ProductLocationLongitude");
-        //get lat and longitude
+        viewPager.setAdapter(myPagerAdapter);
 
-        tvLocation.append("Latitude = "+Double.toString(latitude)+", Longitude = "+Double.toString(longitude));
+        pagerTabStrip.setAllCaps(true);
+        pagerTabStrip.setShouldExpand(true);
+        pagerTabStrip.setViewPager(viewPager);
+
+
+
+
+    }
+
+    public class MyPagerAdapter extends FragmentPagerAdapter
+    {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            if(position == 0)
+            {
+                DaetailsFragment daetailsFragment = DaetailsFragment.newInstance(productModel);
+                return  daetailsFragment;
+            }
+            else if (position ==1)
+            {
+                MapFragment mapFragment = MapFragment.newInstance(productModel);
+                return mapFragment;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if(position ==0)
+            {
+                return "Details";
+            }
+            else if(position == 1)
+            {
+                return "Maps";
+            }
+            else {
+                return null;
+            }
+        }
+
 
     }
 }

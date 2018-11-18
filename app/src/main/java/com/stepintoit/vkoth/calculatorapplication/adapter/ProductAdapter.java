@@ -24,6 +24,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     private List<ProductModel> productModelList;
     Context context;
+    OnClickListener onClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, tags, location, imageLinks;
@@ -46,7 +47,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     }
 
-    public ProductAdapter(Context context,List<ProductModel> productModelList) {
+    public ProductAdapter(Context context,List<ProductModel> productModelList,OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
         this.productModelList = productModelList;
         this.context = context;
     }
@@ -123,20 +125,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(context, ProductInfoActivity.class);
-                i.putExtra("ProductName",productModel.getName().toString());
+                if(onClickListener!= null)
+                {
+                    onClickListener.setOnClickListener(productModel);
+                }
 
-                //pas simage bundle
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("ProductImageLinks",productModel.getImages());
-                bundle.putStringArrayList("ProductTags",productModel.getTags());
-                i.putExtras(bundle);
-
-
-                // i.putExtra("ProductTag",productModel.getTags());
-                i.putExtra("ProductLocationLatitude",productModel.getWarehouseLocation().getLatitude());
-                i.putExtra("ProductLocationLongitude",productModel.getWarehouseLocation().getLongitude());
-                context.startActivity(i);
                 }
         });
 
@@ -177,6 +170,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         productModelList.remove(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();
+    }
+
+    public interface OnClickListener
+    {
+       void setOnClickListener(ProductModel productModel);
     }
 
 

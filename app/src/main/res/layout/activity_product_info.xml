@@ -1,56 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Black">
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".activity.ProductInfoActivity">
 
-    <ImageView
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/pager_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/iphone"
-        android:id="@+id/iv_phone"/>
+        android:layout_height="48dip"
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_product_name"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/iv_phone"
-        android:text="Phone Name : "
-        android:textSize="20dp"
-        android:textColor="@color/Blue"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabs">
+    </android.support.v4.view.ViewPager>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_image_links"
-        android:text="Image Links : "
-        android:textColor="@color/Red"
-        android:textSize="15dp"
-        android:layout_below="@id/tv_product_name"
-        android:layout_marginTop="5dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_tags"
-        android:text="Tags : "
-        android:textSize="15dp"
-        android:textColor="@color/whitepure"
-        android:layout_below="@id/tv_image_links"
-        android:layout_marginTop="5dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_location"
-        android:text="Location : "
-        android:textSize="15dp"
-        android:textColor="@color/White"
-        android:layout_below="@id/tv_tags"
-        android:layout_marginTop="5dp"/>
-
-
-
-
-</RelativeLayout>
+</LinearLayout>
