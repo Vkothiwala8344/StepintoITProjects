@@ -18,6 +18,7 @@ import android.util.Log;
 
 import com.stepintoit.vkoth.calculatorapplication.R;
 import com.stepintoit.vkoth.calculatorapplication.activity.MainActivity;
+import com.stepintoit.vkoth.calculatorapplication.activity.MusicActivity;
 
 public class MusicService extends Service {
 
@@ -90,10 +91,22 @@ public class MusicService extends Service {
             startForeground(ServiceConstants.NOTIFICATION_ID.FOREGROUND_SERVICE,
                     notification.build());
         } else if (intent.getAction().equals(ServiceConstants.ACTION.PREV_ACTION)) {
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction(MusicActivity.PREV_ACTION);
+            broadcastIntent.putExtra("status","previous button clicked");
+            sendBroadcast(broadcastIntent);
             Log.i(LOG_TAG, "Clicked Previous");
         } else if (intent.getAction().equals(ServiceConstants.ACTION.PLAY_ACTION)) {
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction(MusicActivity.PLAY_ACTION);
+            broadcastIntent.putExtra("status","play button clicked");
+            sendBroadcast(broadcastIntent);
             Log.i(LOG_TAG, "Clicked Play");
         } else if (intent.getAction().equals(ServiceConstants.ACTION.NEXT_ACTION)) {
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction(MusicActivity.NEXT_ACTION);
+            broadcastIntent.putExtra("status","next button clicked");
+            sendBroadcast(broadcastIntent);
             Log.i(LOG_TAG, "Clicked Next");
         } else if (intent.getAction().equals(
                 ServiceConstants.ACTION.STOPFOREGROUND_ACTION)) {
