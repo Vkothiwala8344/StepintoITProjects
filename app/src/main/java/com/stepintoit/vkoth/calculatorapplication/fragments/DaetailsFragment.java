@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.stepintoit.vkoth.calculatorapplication.R;
 import com.stepintoit.vkoth.calculatorapplication.model.ProductModel;
 
@@ -19,7 +21,8 @@ import java.util.ArrayList;
 public class DaetailsFragment extends Fragment {
 
     private static final String ARG_PRODUCT = "product";
-    TextView tvProductName, tvImageLinks, tvTags, tvLocation;
+    TextView tvProductName, tvImageLinks, tvTags, tvLocation,tvTelephone;
+    ImageView imageView;
 
 
     private ProductModel product;
@@ -57,7 +60,8 @@ public class DaetailsFragment extends Fragment {
         tvImageLinks = (TextView) view.findViewById(R.id.tv_image_links);
         tvTags = (TextView) view.findViewById(R.id.tv_tags);
         tvLocation = (TextView) view.findViewById(R.id.tv_location);
-
+        imageView = (ImageView)view.findViewById(R.id.iv_phone);
+        tvTelephone = (TextView)view.findViewById(R.id.tv_telephone);
 
         tvProductName.append(product.getName());
 
@@ -71,6 +75,8 @@ public class DaetailsFragment extends Fragment {
         }while (i<productImageLinks.size()-1);
         tvImageLinks.append(productImageLinks.get(i));
 
+        Glide.with(this).load(product.getImages().get(0)).into(imageView);
+
         //get tags from arraylist
         ArrayList<String> productTags = product.getTags();
         Log.d("ProductINfo","tags:"+productTags.size());
@@ -81,6 +87,13 @@ public class DaetailsFragment extends Fragment {
         //get lat and longitude
 
         tvLocation.append("Latitude = "+Double.toString(latitude)+", Longitude = "+Double.toString(longitude));
+        tvTelephone.append(product.getPhone());
+        tvTelephone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
     }
 

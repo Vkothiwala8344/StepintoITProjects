@@ -16,6 +16,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.stepintoit.vkoth.calculatorapplication.R;
 import com.stepintoit.vkoth.calculatorapplication.fragments.DaetailsFragment;
 import com.stepintoit.vkoth.calculatorapplication.fragments.MapFragment;
+import com.stepintoit.vkoth.calculatorapplication.fragments.WebFragment;
 import com.stepintoit.vkoth.calculatorapplication.model.ProductModel;
 
 import java.lang.reflect.Array;
@@ -72,6 +73,11 @@ public class ProductInfoActivity extends AppCompatActivity {
                 MapFragment mapFragment = MapFragment.newInstance(productModel);
                 return mapFragment;
             }
+            else if (position ==2)
+                {
+                   WebFragment webFragment = WebFragment.newInstance(productModel);
+                   return webFragment;
+                }
             else
             {
                 return null;
@@ -81,7 +87,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Nullable
@@ -95,6 +101,10 @@ public class ProductInfoActivity extends AppCompatActivity {
             {
                 return "Maps";
             }
+            else if(position == 2)
+                {
+                return "Web Page";
+                }
             else {
                 return null;
             }
