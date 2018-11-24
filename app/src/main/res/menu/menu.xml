@@ -15,5 +15,9 @@
         app:showAsAction="never">
 
     </item>
+    <item android:id="@+id/itm_service"
+        android:title="Service"
+        app:showAsAction="always">
 
+    </item>
 </menu>

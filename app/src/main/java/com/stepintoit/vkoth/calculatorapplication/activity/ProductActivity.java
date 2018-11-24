@@ -93,10 +93,15 @@ public class ProductActivity extends AppCompatActivity {
                     }
                 }
                 i.putExtra("favouriteList", favouriteList);
-
                 startActivity(i);
+                return true;
 
                 //Toast.makeText(getApplicationContext(),"favourite opened",Toast.LENGTH_SHORT).show();
+
+            case R.id.itm_service:
+                startActivity(new Intent(ProductActivity.this,MusicActivity.class));
+                return true;
+
         }
         return (super.onOptionsItemSelected(item));
     }

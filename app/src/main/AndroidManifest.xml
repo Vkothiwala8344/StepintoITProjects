@@ -36,7 +36,9 @@
         <activity android:name=".activity.ProductActivity"/>
         <activity android:name=".activity.ProductInfoActivity"/>
         <activity android:name=".activity.FavouriteProductActivity"/>
+        <activity android:name=".activity.MusicActivity"/>
 
+        <service android:name=".service.MusicService"/>
 
     </application>
 
