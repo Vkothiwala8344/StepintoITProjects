@@ -14,9 +14,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.stepintoit.vkoth.calculatorapplication.BuildConfig;
 import com.stepintoit.vkoth.calculatorapplication.R;
 import com.stepintoit.vkoth.calculatorapplication.service.MusicService;
 import com.stepintoit.vkoth.calculatorapplication.service.ServiceConstants;
+
+import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import timber.log.Timber;
+
+//import java.util.Observable;
 
 public class MusicActivity extends AppCompatActivity {
 
@@ -24,7 +36,7 @@ public class MusicActivity extends AppCompatActivity {
     public static String PREV_ACTION = "com.stepintoit.vkoth.calculatorapplication.activity.mainactivity.prev";
     public static String PLAY_ACTION = "com.stepintoit.vkoth.calculatorapplication.activity.mainactivity.play";
     public static String NEXT_ACTION = "com.stepintoit.vkoth.calculatorapplication.activity.mainactivity.next";
-    Button btnStart,btnStop;
+    Button btnStart, btnStop;
     TextView tvStatus;
     IntentFilter intentFilter;
     MusicBroadcasterReceiver musicBroadcasterReceiver;
@@ -34,9 +46,10 @@ public class MusicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
 
-        btnStart = (Button)findViewById(R.id.btn_start_music);
-        btnStop = (Button)findViewById(R.id.btn_stop_music);
-        tvStatus = (TextView)findViewById(R.id.tv_status);
+
+        btnStart = (Button) findViewById(R.id.btn_start_music);
+        btnStop = (Button) findViewById(R.id.btn_stop_music);
+        tvStatus = (TextView) findViewById(R.id.tv_status);
 
         intentFilter = new IntentFilter();
         intentFilter.addAction(MAIN_ACTION);
@@ -45,7 +58,6 @@ public class MusicActivity extends AppCompatActivity {
         intentFilter.addAction(NEXT_ACTION);
 
         musicBroadcasterReceiver = new MusicBroadcasterReceiver();
-
 
 
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -66,28 +78,70 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-
+        simpleObservable();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(musicBroadcasterReceiver,intentFilter);
+        registerReceiver(musicBroadcasterReceiver, intentFilter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-       // unregisterReceiver(musicBroadcasterReceiver);
+        // unregisterReceiver(musicBroadcasterReceiver);
     }
 
-    public class MusicBroadcasterReceiver extends BroadcastReceiver
-    {
+    public class MusicBroadcasterReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String status = intent.getStringExtra("status");
             tvStatus.append(status);
         }
+    }
+
+
+    void simpleObservable() {
+        ArrayList<String> nameList = new ArrayList<>();
+        nameList.add("varun");
+        nameList.add("chetan");
+        nameList.add("sunny");
+        nameList.add("viral");
+        nameList.add("bhav");
+        Observable<String> observable = Observable.fromIterable(nameList).map(new Function<String, String>() {
+            @Override
+            public String apply(String s) throws Exception {
+                return s+" Patel";
+            }
+        }).filter(new Predicate<String>() {
+            @Override
+            public boolean test(String s) throws Exception {
+                return s.contains("r");
+            }
+        });
+        observable.subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+                Timber.d("onSubscribe");
+            }
+
+            @Override
+            public void onNext(String string) {
+                Timber.i("value = " + string);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onComplete() {
+                Timber.d("onComplete");
+            }
+        });
     }
 }

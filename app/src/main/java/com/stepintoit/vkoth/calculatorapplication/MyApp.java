@@ -4,9 +4,15 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 
+import timber.log.Timber;
+
 public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
-        Stetho.initializeWithDefaults(this);
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+            Timber.plant(new Timber.DebugTree());
+        }
+
     }
 }

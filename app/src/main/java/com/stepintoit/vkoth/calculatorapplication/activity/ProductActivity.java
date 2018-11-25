@@ -26,6 +26,11 @@ import com.stepintoit.vkoth.calculatorapplication.model.ProductModel;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -126,26 +131,49 @@ public class ProductActivity extends AppCompatActivity {
     void getProductData() {
         APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
 
-        Call<ArrayList<ProductModel>> call = apiInterface.getProductList();
-        call.enqueue(new Callback<ArrayList<ProductModel>>() {
-            @Override
-            public void onResponse(Call<ArrayList<ProductModel>> call, Response<ArrayList<ProductModel>> response) {
+        Observable<ArrayList<ProductModel>> productApiObservable = apiInterface.getProductList();
+        productApiObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ArrayList<ProductModel>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                productList = response.body();
+                    }
 
-//                databaseHelper.insertProduct(productList);
-//                databaseHelper.insertImages(productList);
-//                databaseHelper.insertTags(productList);
+                    @Override
+                    public void onNext(ArrayList<ProductModel> productModels) {
+                        productList = productModels;
+                        sendProductListToRecycler();
+                    }
 
-                sendProductListToRecycler();
-            }
+                    @Override
+                    public void onError(Throwable e) {
 
-            @Override
-            public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
-                t.printStackTrace();
+                    }
 
-            }
-        });
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+//        call.enqueue(new Callback<ArrayList<ProductModel>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<ProductModel>> call, Response<ArrayList<ProductModel>> response) {
+//
+//                productList = response.body();
+//
+////                databaseHelper.insertProduct(productList);
+////                databaseHelper.insertImages(productList);
+////                databaseHelper.insertTags(productList);
+//
+//                sendProductListToRecycler();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<ProductModel>> call, Throwable t) {
+//                t.printStackTrace();
+//
+//            }
+//        });
 
 
     }

@@ -1,5 +1,7 @@
 package com.stepintoit.vkoth.calculatorapplication.data;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -19,6 +21,7 @@ public class APIClient {
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://my-json-server.typicode.com")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
 
