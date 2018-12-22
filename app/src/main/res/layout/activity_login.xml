@@ -60,6 +60,15 @@
         android:background="@drawable/btn_submit_background"
         android:text="Submit" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btn_login_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+       android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+         />
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

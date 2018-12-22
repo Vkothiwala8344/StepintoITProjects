@@ -8,11 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.stepintoit.vkoth.calculatorapplication.data.MySharedPreference;
 import com.stepintoit.vkoth.calculatorapplication.R;
 
@@ -27,55 +31,47 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import timber.log.Timber;
 
 public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+    private CallbackManager callbackManager;
     public static final String MYPREFERENCE = "mypref";
     public static final String KEY_USER = "userKey";
     public static final String KEY_PASSWORD = "passKey";
-    ProgressBar pbLogin;
+    private static final String EMAIL = "email";
 
-    Button btnSubmit;
-    EditText edtUsername, edtPassword;
+    @BindView(R.id.pb_login)
+    ProgressBar pbLogin;
+    @BindView(R.id.edt_username)
+    EditText edtUsername;
+    @BindView(R.id.edt_password)
+    EditText edtPassword;
+    @BindView(R.id.btn_login_fb)
+    LoginButton btnLoginFb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btnSubmit = (Button) findViewById(R.id.btn_submit);
-        edtUsername = (EditText) findViewById(R.id.edt_username);
-        edtPassword = (EditText) findViewById(R.id.edt_password);
+        ButterKnife.bind(this);
 
-        pbLogin = (ProgressBar) findViewById(R.id.pb_login);
+        callbackManager = CallbackManager.Factory.create();
 
+    }
 
-        //check if you have stored data in shared preferences
-
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String uname, pass;
-                uname = edtUsername.getText().toString();
-                pass = edtPassword.getText().toString();
-
-                if (uname.isEmpty() && pass.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "username and password can not be empty", Toast.LENGTH_SHORT).show();
-
-                } else if (uname.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "username can not be empty", Toast.LENGTH_SHORT).show();
-                } else if (pass.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Password can not be empty", Toast.LENGTH_SHORT).show();
-
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(uname).matches()) {
-                    Toast.makeText(getApplicationContext(), "Invalid email id", Toast.LENGTH_LONG).show();
-                } else {
-                    new LoginTask().execute(uname, pass);
-                }
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private class LoginTask extends AsyncTask<String, Integer, String> {
@@ -195,6 +191,54 @@ public class LoginActivity extends AppCompatActivity {
             while (-1 != (n = reader.read(buffer))) writer.write(buffer, 0, n);
             return writer.toString();
         }
+    }
+
+    @OnClick(R.id.btn_submit)
+    void verifyUser() {
+        String uname, pass;
+        uname = edtUsername.getText().toString();
+        pass = edtPassword.getText().toString();
+
+        if (uname.isEmpty() && pass.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "username and password can not be empty", Toast.LENGTH_SHORT).show();
+
+        } else if (uname.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "username can not be empty", Toast.LENGTH_SHORT).show();
+        } else if (pass.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Password can not be empty", Toast.LENGTH_SHORT).show();
+
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(uname).matches()) {
+            Toast.makeText(getApplicationContext(), "Invalid email id", Toast.LENGTH_LONG).show();
+        } else {
+            new LoginTask().execute(uname, pass);
+        }
+    }
+
+    @OnClick(R.id.btn_login_fb)
+    void facebookLoginButtonSetup() {
+        btnLoginFb.setReadPermissions(Arrays.asList(EMAIL));
+        // If you are using in a fragment, call btnLoginFb.setFragment(this);
+
+        // Callback registration
+        btnLoginFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                Timber.i("access token=" + loginResult.getAccessToken().getToken());
+                startActivity(new Intent(LoginActivity.this, ProductActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
     }
 }
 

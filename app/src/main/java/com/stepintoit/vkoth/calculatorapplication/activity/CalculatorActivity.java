@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.stepintoit.vkoth.calculatorapplication.data.MySharedPreference;
 import com.stepintoit.vkoth.calculatorapplication.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class CalculatorActivity extends AppCompatActivity {
 
     public static final int ADDITION = 1;
@@ -21,29 +25,25 @@ public class CalculatorActivity extends AppCompatActivity {
     public static final int MULTIPLY = 3;
     public static final int DIVISION = 4;
 
-    Button btnPlus, btnMinus, btnDivision, btnMultiply;
-    EditText edtResult;
-
-    EditText edtValue1, edtValue2;
-
     private static double mValue1, mValue2;
     private static double mResult = 0;
+
+
+    @BindView(R.id.edt_result)
+    EditText edtResult;
+    @BindView(R.id.edt_value1)
+    EditText edtValue1;
+    @BindView(R.id.edt_value2)
+    EditText edtValue2;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
+        ButterKnife.bind(this);
 
-        btnPlus = (Button) findViewById(R.id.btn_plus);
-        btnMinus = (Button) findViewById(R.id.btn_minus);
-        btnMultiply = (Button) findViewById(R.id.btn_multiply);
-        btnDivision = (Button) findViewById(R.id.btn_division);
-
-        edtValue1 = (EditText) findViewById(R.id.edt_value1);
-        edtValue2 = (EditText) findViewById(R.id.edt_value2);
-
-        edtResult = (EditText) findViewById(R.id.edt_result);
 
         String valueX = MySharedPreference.getInstance(CalculatorActivity.this).getValue(MySharedPreference.KEY_X);
         String valueY = MySharedPreference.getInstance(CalculatorActivity.this).getValue(MySharedPreference.KEY_Y);
@@ -51,37 +51,7 @@ public class CalculatorActivity extends AppCompatActivity {
         edtValue1.setText(valueX);
         edtValue2.setText(valueY);
 
-        btnPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                getResult(ADDITION);
-
-            }
-        });
-
-        btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getResult(MINUS);
-            }
-        });
-
-        btnMultiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getResult(MULTIPLY);
-            }
-        });
-        btnDivision.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getResult(DIVISION);
-            }
-        });
     }
 
     @Override
@@ -96,6 +66,39 @@ public class CalculatorActivity extends AppCompatActivity {
         MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_X, edtValue1.getText().toString());
         MySharedPreference.getInstance(CalculatorActivity.this).putValue(MySharedPreference.KEY_Y, edtValue2.getText().toString());
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itm_logout:
+
+
+                MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_TOKEN);
+                //MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
+                startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
+                finish();
+                return true;
+        }
+        return (super.onOptionsItemSelected(item));
+    }
+
+    @OnClick(R.id.btn_plus)
+    void plus() {
+        getResult(1);
+    }
+    @OnClick(R.id.btn_minus)
+    void minus() {
+        getResult(2);
+    }
+    @OnClick(R.id.btn_multiply)
+    void multiply() {
+        getResult(3);
+    }
+    @OnClick(R.id.btn_division)
+    void division() {
+        getResult(4);
     }
 
     public void getResult(int operation) {
@@ -126,20 +129,5 @@ public class CalculatorActivity extends AppCompatActivity {
 
             edtResult.setText(Double.toString(mResult));
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.itm_logout:
-
-
-                MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_TOKEN);
-                //MySharedPreference.getInstance(CalculatorActivity.this).deleteValue(MySharedPreference.KEY_PASSWORD);
-                startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
-                finish();
-                return true;
-        }
-        return (super.onOptionsItemSelected(item));
     }
 }
